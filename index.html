@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人主页</title>
     <style>
         body {
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            background-image: url('https://bing.img.run/1920x1080.php');
+            background-size: cover;
+            background-position: center;
             color: #ffffff;
             font-family: 'Roboto', sans-serif;
             margin: 0;
@@ -19,52 +21,57 @@
         .container {
             text-align: center;
             padding: 50px;
-            border: 2px solid #00c6ff;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 198, 255, 0.7);
             background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
         }
         h1 {
-            color: #00c6ff;
             font-size: 3em;
             margin-bottom: 20px;
-            text-shadow: 0 0 10px #00c6ff;
-            animation: neon 1.5s ease-in-out infinite alternate;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
         }
-        p {
-            font-size: 18px;
+        .quote {
+            margin-top: 20px;
+            font-size: 1.5em;
             line-height: 1.6;
-            margin-bottom: 30px;
+            color: #ffdf5e;
         }
-        a {
+        .quote-author {
+            margin-top: 10px;
+            font-size: 1.2em;
+            color: #dddddd;
+        }
+        .copyright {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
             color: #ffffff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            background-color: #00c6ff;
-            box-shadow: 0 0 10px #00c6ff, 0 0 20px #00c6ff, 0 0 30px #00c6ff;
-            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-        }
-        a:hover {
-            background-color: #008fcc;
-            transform: scale(1.05);
-            box-shadow: 0 0 20px #008fcc, 0 0 40px #008fcc, 0 0 60px #008fcc;
-        }
-        @keyframes neon {
-            from {
-                text-shadow: 0 0 10px #00c6ff, 0 0 20px #00c6ff, 0 0 30px #00c6ff, 0 0 40px #00c6ff;
-            }
-            to {
-                text-shadow: 0 0 20px #00c6ff, 0 0 30px #00c6ff, 0 0 40px #00c6ff, 0 0 50px #00c6ff;
-            }
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
         }
     </style>
+    <script>
+        // Fetch quote from API
+        fetch('https://v1.jinrishici.com/all.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('quote').innerText = data.content;
+                document.getElementById('quote-author').innerText = '——' + data.author + '《' + data.origin + '》';
+            })
+            .catch(error => {
+                console.error('Error fetching quote:', error);
+            });
+    </script>
 </head>
 <body>
     <div class="container">
         <h1>欢迎来到我的个人主页</h1>
-        <p class="email">邮箱: <a href="mailto:zhangjinyu0418@hotmail.com">zhangjinyu0418@hotmail.com</a></p>
-        <p class="github">GitHub主页: <a href="https://github.com/PhantomPixel-0418" target="_blank">访问我的GitHub</a></p>
+        <div class="quote" id="quote">名言加载中...</div>
+        <div class="quote-author" id="quote-author"></div>
+    </div>
+    <div class="copyright">
+        图片来源: © Bing
     </div>
 </body>
 </html>
